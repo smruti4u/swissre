@@ -10,11 +10,12 @@
 
 - Objective 1 has been solved by CSVRepositoryImpl which reads from CSV and Updates employee list
 - Objectives 2 and Objectives 3 has been solved using Manager Map and Employee Map which has been created by OrgRepositoryImpl
-- Objective 4 has been solved by using BFS.
+- Objective 4 has been solved by using BFS in OrgManagerServiceImpl
 
 > Unit Test uses JUNIT and Mockito for mocking
 
 ### Concepts Used
 - Single Responsibility
 - Interface Segregation
+- Dependency Injenction
   
