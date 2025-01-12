@@ -9,8 +9,15 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.TreeSet;
 
+/**
+ * Creates The Test Data
+ */
 public class CreateTestData {
 
+    /**
+     * Populates managerMap and employeeMap with test Data
+     * @return List Of employees
+     */
     public static List<Employee> load() {
         List<Employee> employees =  new ArrayList<>();
 

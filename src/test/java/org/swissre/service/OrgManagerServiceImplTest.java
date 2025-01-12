@@ -22,20 +22,31 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
-
+/**
+ * test class for OrgManagerServiceImpl
+ */
 public class OrgManagerServiceImplTest {
 
+    /**
+     * Mocked OrgRepository
+     */
     @Mock
     private OrgRepository orgRepository;
 
+    /**
+     * Testing with concrete class OrgManagerServiceImpl
+     */
     private OrgManagerServiceImpl orgManagerService;
 
+    /**
+     * List Of employees
+     */
     private List<Employee> employees;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this); // Initialize mocks
-        orgManagerService =  new OrgManagerServiceImpl(orgRepository);
+        orgManagerService = new OrgManagerServiceImpl(orgRepository);
         employees = CreateTestData.load();
     }
 
@@ -53,7 +64,7 @@ public class OrgManagerServiceImplTest {
 
         // Mock the OrgRepository behavior
         when(orgRepository.getAverageSalary(anyString())).thenReturn(BigDecimal.valueOf(averageSalary));
-        BigDecimal lowestSalary = BigDecimal.valueOf(averageSalary*0.2 + averageSalary); // 20% more from average Salary
+        BigDecimal lowestSalary = BigDecimal.valueOf(averageSalary * 0.2 + averageSalary); // 20% more from average Salary
 
         // Get All Managers Earnings less than the lowest salary from employees list
         List<Employee> employee = employees.stream().filter(
@@ -75,7 +86,7 @@ public class OrgManagerServiceImplTest {
 
         // Mock the OrgRepository behavior
         when(orgRepository.getAverageSalary(anyString())).thenReturn(BigDecimal.valueOf(averageSalary));
-        BigDecimal highest = BigDecimal.valueOf(averageSalary*0.5 + averageSalary); // 50% more from average Salary
+        BigDecimal highest = BigDecimal.valueOf(averageSalary * 0.5 + averageSalary); // 50% more from average Salary
 
         // Get All Managers Earnings more than the highest salary from employees list
         List<Employee> employee = employees.stream().filter(
