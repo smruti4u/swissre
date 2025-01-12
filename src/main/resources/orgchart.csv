@@ -1,0 +1,15 @@
+Id,firstName,lastName,salary,managerId
+123,Joe,Doe,60000,
+124,Martin,Chekov,45000,123
+125,Bob,Ronstad,47000,123
+126,John,Chekov,35000,123
+127,boby,hairpin,55000,123
+128,Alice,Hasacat,50000,124
+129,Hyatt,Hardleaf,34000,124
+130,surya,hyat,24000,124
+131,rivin,jose,64000,130
+132,Rohan,Mishra,14000,131
+133,Sayali,Panda,78000,132
+134,Smruti,Panda,80000,132
+135,Biswa,Joshi,20000,134
+135,Pargyan,Dash,30000,134

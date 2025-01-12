@@ -1,7 +1,8 @@
-package org.swissre.repository;
+package org.swissre.repository.impl;
 
 
 import org.swissre.entity.Employee;
+import org.swissre.repository.FileRepository;
 import org.swissre.utils.Constants;
 import java.io.*;
 import java.math.BigDecimal;
@@ -11,7 +12,7 @@ import java.util.*;
 /**
  * Repository Class For Reading CSV File
  */
-public class CSVRepository {
+public class CSVRepositoryImpl implements FileRepository {
 
 
     /**
@@ -19,10 +20,11 @@ public class CSVRepository {
      * @return Set<Employee>
      * @throws FileNotFoundException when file not found
      */
+    @Override
     public Set<Employee> readFile() throws FileNotFoundException {
         Set<Employee> employeeList = new HashSet<>();
 
-        try (InputStream inputStream = CSVRepository.class.getClassLoader().getResourceAsStream(Constants.FILE_PATH)) {
+        try (InputStream inputStream = CSVRepositoryImpl.class.getClassLoader().getResourceAsStream(Constants.FILE_PATH)) {
             if (inputStream == null) {
                 throw new FileNotFoundException("file not found in resource folder");
             }

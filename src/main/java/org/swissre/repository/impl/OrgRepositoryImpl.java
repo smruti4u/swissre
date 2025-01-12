@@ -1,6 +1,8 @@
-package org.swissre.repository;
+package org.swissre.repository.impl;
 
 import org.swissre.entity.Employee;
+import org.swissre.repository.FileRepository;
+import org.swissre.repository.OrgRepository;
 
 import java.io.FileNotFoundException;
 import java.math.BigDecimal;
@@ -8,25 +10,26 @@ import java.math.RoundingMode;
 import java.util.*;
 
 /**
- * OrgRepository loads
- * managerMap and employeeMap and gives average subordinate salary
+ * OrgRepository implementation loads managerMap and employeeMap
+ * gives average subordinate salary
  */
-public class OrgRepository {
+public class OrgRepositoryImpl implements OrgRepository {
     public static Map<String, TreeSet<Employee>> managerMap = new HashMap<>();
     public static Map<String, Employee> employeeMap = new HashMap<>();
 
-    private final CSVRepository csvRepository;
+    private final FileRepository fileRepository;
 
-    public OrgRepository(CSVRepository csvRepository) {
-        this.csvRepository = csvRepository;
+    public OrgRepositoryImpl(FileRepository fileRepository) {
+        this.fileRepository = fileRepository;
     }
 
     /**
      * loads employeeMap and managerMap
      * @throws FileNotFoundException when file not found at specified path
      */
+    @Override
     public void loadData() throws FileNotFoundException {
-        Set<Employee> employeeList = this.csvRepository.readFile();
+        Set<Employee> employeeList = this.fileRepository.readFile();
         for (Employee e : employeeList) {
 
             populateEmployeeMap(e);
@@ -35,7 +38,7 @@ public class OrgRepository {
     }
 
     /**
-     * populates Manager Map with sub oridinates for manager search
+     * populates Manager Map with subordinates for manager search
      * @param employee Employee object
      */
     private static void populateManagerMap(Employee employee) {
@@ -65,9 +68,10 @@ public class OrgRepository {
      * @param managerId managerId for which average salary of subordinate will be calculated
      * @return average salary
      */
+    @Override
     public BigDecimal getAverageSalary(String managerId) {
         BigDecimal sum = BigDecimal.valueOf(0);
-        Set<Employee> subordinates =  OrgRepository.managerMap.get(managerId);
+        Set<Employee> subordinates =  OrgRepositoryImpl.managerMap.get(managerId);
         for(Employee subordinate : subordinates)
         {
             sum = sum.add(subordinate.getSalary());

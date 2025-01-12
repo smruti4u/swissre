@@ -1,8 +1,10 @@
-package org.swissre.service;
+package org.swissre.service.impl;
 
 import org.swissre.entity.Employee;
 import org.swissre.entity.ManagerEarning;
 import org.swissre.repository.OrgRepository;
+import org.swissre.repository.impl.OrgRepositoryImpl;
+import org.swissre.service.OrgManagerService;
 import org.swissre.utils.Constants;
 
 import java.io.FileNotFoundException;
@@ -10,6 +12,9 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
 
+/**
+ * Implementation for Org Manager Service OrgManagerServiceImpl
+ */
 public class OrgManagerServiceImpl implements OrgManagerService {
 
     /**
@@ -43,7 +48,7 @@ public class OrgManagerServiceImpl implements OrgManagerService {
         List<Employee> managers = new ArrayList<>();
         System.out.println("------------------------------------");
         System.out.println("Manager Salary Detail");
-        OrgRepository.managerMap.forEach((managerId, employees) -> {
+        OrgRepositoryImpl.managerMap.forEach((managerId, employees) -> {
 
             // Handling CEO Use Case where Manager ID is null
             if (managerId != null) {
@@ -61,8 +66,8 @@ public class OrgManagerServiceImpl implements OrgManagerService {
 
 
                 // Get The Manager details from Manager Map
-                Employee manager = OrgRepository.employeeMap.get(managerId);
-                System.out.println("Average higher Salary for Manager with Id " + manager.getManagerId() + " " + manager.getFirstName() +  " " + manager.getSalary()  + ": averageHigherSalary: " + averageHigherSalary + "averageLowerSalary " + averageLowerSalary + " averageSalary :  "+ averageSalary);
+                Employee manager = OrgRepositoryImpl.employeeMap.get(managerId);
+                System.out.println("Average higher Salary for Manager with Id " + manager.getManagerId() + " " + manager.getFirstName() +  " " + manager.getSalary()  + " : averageHigherSalary: " + averageHigherSalary + " averageLowerSalary : " + averageLowerSalary + " averageSalary :  "+ averageSalary);
 
                 BigDecimal currentManagerSalary = manager.getSalary();
 
@@ -95,7 +100,7 @@ public class OrgManagerServiceImpl implements OrgManagerService {
         Queue<Employee> queue = new LinkedList<>();
         List<Employee> result = new ArrayList<>();
         int employeeLevel = -1;
-        queue.add(OrgRepository.managerMap.get(null).first());
+        queue.add(OrgRepositoryImpl.managerMap.get(null).first());
         while (!queue.isEmpty()) {
             int count = queue.size();
             employeeLevel++;
@@ -104,7 +109,7 @@ public class OrgManagerServiceImpl implements OrgManagerService {
                 Employee manager = queue.poll();
                 manager.setLevel(employeeLevel);
 
-                Set<Employee> reported = OrgRepository.managerMap.get(manager.getId());
+                Set<Employee> reported = OrgRepositoryImpl.managerMap.get(manager.getId());
 
                 if (reported != null && !reported.isEmpty()) queue.addAll(reported);
                 if (employeeLevel > Constants.LONG_LEVEL_THRESHOLD) {
@@ -123,7 +128,7 @@ public class OrgManagerServiceImpl implements OrgManagerService {
      */
     @Override
     public void printAllEmployee() {
-        OrgRepository.employeeMap.forEach((key, employee) -> System.out.println(employee));
+        OrgRepositoryImpl.employeeMap.forEach((key, employee) -> System.out.println(employee));
     }
 
 
